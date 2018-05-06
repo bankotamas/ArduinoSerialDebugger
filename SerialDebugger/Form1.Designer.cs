@@ -58,6 +58,10 @@
             this.command_tbox = new System.Windows.Forms.TextBox();
             this.serialMonitor_rtbox = new System.Windows.Forms.RichTextBox();
             this.serialPortAliveTimer = new System.Windows.Forms.Timer(this.components);
+            this.settings_lbox = new System.Windows.Forms.ListBox();
+            this.saveSettings_btn = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.settingsName_tbox = new System.Windows.Forms.TextBox();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -183,6 +187,10 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.settingsName_tbox);
+            this.tabPage1.Controls.Add(this.button1);
+            this.tabPage1.Controls.Add(this.saveSettings_btn);
+            this.tabPage1.Controls.Add(this.settings_lbox);
             this.tabPage1.Controls.Add(this.stopbit_cbox);
             this.tabPage1.Controls.Add(this.parity_cbox);
             this.tabPage1.Controls.Add(this.databit_cbox);
@@ -328,6 +336,40 @@
             // 
             this.serialPortAliveTimer.Tick += new System.EventHandler(this.serialPortAlive_Tick);
             // 
+            // settings_lbox
+            // 
+            this.settings_lbox.FormattingEnabled = true;
+            this.settings_lbox.Location = new System.Drawing.Point(199, 12);
+            this.settings_lbox.Name = "settings_lbox";
+            this.settings_lbox.Size = new System.Drawing.Size(178, 121);
+            this.settings_lbox.TabIndex = 12;
+            // 
+            // saveSettings_btn
+            // 
+            this.saveSettings_btn.Location = new System.Drawing.Point(199, 148);
+            this.saveSettings_btn.Name = "saveSettings_btn";
+            this.saveSettings_btn.Size = new System.Drawing.Size(75, 23);
+            this.saveSettings_btn.TabIndex = 13;
+            this.saveSettings_btn.Text = "Save";
+            this.saveSettings_btn.UseVisualStyleBackColor = true;
+            this.saveSettings_btn.Click += new System.EventHandler(this.saveSettings_btn_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(199, 177);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 14;
+            this.button1.Text = "Load";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // settingsName_tbox
+            // 
+            this.settingsName_tbox.Location = new System.Drawing.Point(280, 150);
+            this.settingsName_tbox.Name = "settingsName_tbox";
+            this.settingsName_tbox.Size = new System.Drawing.Size(97, 20);
+            this.settingsName_tbox.TabIndex = 15;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -380,6 +422,10 @@
         private System.Windows.Forms.Button sendCommand_btn;
         private System.Windows.Forms.TextBox command_tbox;
         private System.Windows.Forms.Timer serialPortAliveTimer;
+        private System.Windows.Forms.TextBox settingsName_tbox;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button saveSettings_btn;
+        private System.Windows.Forms.ListBox settings_lbox;
     }
 }
 

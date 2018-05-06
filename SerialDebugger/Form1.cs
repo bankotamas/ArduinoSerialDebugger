@@ -29,55 +29,9 @@ namespace SerialDebugger
             /* Is not open */
             if (!Arduino.serialPort.IsOpen)
             {
-                try
-                {
-                    Arduino.serialPort.PortName = comport_cbox.SelectedItem.ToString();
-                    Arduino.serialPort.BaudRate = Convert.ToInt32(baudrate_cbox.SelectedItem.ToString());
+                Arduino.SetSerialPort(comport_cbox, baudrate_cbox, databit_cbox, parity_cbox, stopbit_cbox);
 
-                    Arduino.serialPort.DataBits = Convert.ToInt32(databit_cbox.SelectedItem.ToString());
-
-                    switch (parity_cbox.SelectedItem.ToString())
-                    {
-                        case "None":
-                            Arduino.serialPort.Parity = Parity.None;
-                            break;
-                        case "Odd":
-                            Arduino.serialPort.Parity = Parity.Odd;
-                            break;
-                        case "Even":
-                            Arduino.serialPort.Parity = Parity.Even;
-                            break;
-                        case "Mark":
-                            Arduino.serialPort.Parity = Parity.Mark;
-                            break;
-                        case "Space":
-                            Arduino.serialPort.Parity = Parity.Space;
-                            break;
-                    }
-
-                    switch (stopbit_cbox.SelectedItem.ToString())
-                    {
-                        case "None":
-                            Arduino.serialPort.StopBits = StopBits.None;
-                            break;
-                        case "One":
-                            Arduino.serialPort.StopBits = StopBits.One;
-                            break;
-                        case "Two":
-                            Arduino.serialPort.StopBits = StopBits.Two;
-                            break;
-                        case "OnePointFive":
-                            Arduino.serialPort.StopBits = StopBits.OnePointFive;
-                            break;
-                    }
-
-                    Arduino.serialPort.Open();
-                    Arduino.serialPort.DataReceived += new SerialDataReceivedEventHandler(Arduino_DataReceived);
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Serial Port error");
-                }
+                Arduino.serialPort.Open();
             }
             else
             {
@@ -156,6 +110,12 @@ namespace SerialDebugger
         {
             comport_cbox.Items.Clear();
             comport_cbox.Items.AddRange(Arduino.AvailablePorts());
+        }
+
+        private void saveSettings_btn_Click(object sender, EventArgs e)
+        {
+            settings_lbox.Items.Add(settingsName_tbox.Text.ToString());
+            settingsName_tbox.Text = string.Empty;
         }
     }
 }
