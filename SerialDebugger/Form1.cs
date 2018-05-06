@@ -55,7 +55,7 @@ namespace SerialDebugger
         {
             SerialPort sp = (SerialPort)sender;
             string indata = sp.ReadLine();
-            serialMonitor_rtbox.AppendText(DateTime.Now.ToString() + indata + "\n");
+            serialMonitor_rtbox.AppendText(DateTime.Now.TimeOfDay.ToString() + " [Received] - " + indata + "\n");
         }
  
         private void serialPortAlive_Tick(object sender, EventArgs e)
@@ -88,6 +88,23 @@ namespace SerialDebugger
         {
             Arduino.serialPort.Close();
             Arduino.serialPort.Dispose();
+        }
+
+        private void sendCommand_btn_Click(object sender, EventArgs e)
+        {
+            getTemp();
+        }
+
+        private void getTemp()
+        {
+            try
+            {
+                String msg = "6,0,0,0\n";
+                Arduino.serialPort.Write(msg);
+
+                serialMonitor_rtbox.AppendText(DateTime.Now.ToLongTimeString() + " [Sent] - " + msg.ToString() + "\n");
+            }
+            catch (Exception) { }
         }
     }
 }

@@ -302,6 +302,7 @@
             this.sendCommand_btn.TabIndex = 2;
             this.sendCommand_btn.Text = "Send";
             this.sendCommand_btn.UseVisualStyleBackColor = true;
+            this.sendCommand_btn.Click += new System.EventHandler(this.sendCommand_btn_Click);
             // 
             // command_tbox
             // 
