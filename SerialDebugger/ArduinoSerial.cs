@@ -13,19 +13,10 @@ namespace SerialDebugger
     {
         public SerialPort serialPort = new SerialPort();
 
-        public string[] AvailablePorts()
-        {
-            string[] portNames;
-
-            portNames = SerialPort.GetPortNames();
-
-            return portNames;
-        }
-
         public void ArduinoDefaults(ComboBox baud, ComboBox dataBit, ComboBox parity, ComboBox stopBit)
         {
             baud.Items.AddRange(new string[] { "300", "600", "1200", "2400", "4800", "9600", "14400", "19200", "28800", "38400", "57600", "115200" });
-            dataBit.Items.AddRange(new string[] {"5", "6", "7", "8", "9" });
+            dataBit.Items.AddRange(new string[] { "5", "6", "7", "8", "9" });
             parity.Items.AddRange(new string[] { "None", "Odd", "Even", "Mark", "Space" });
             stopBit.Items.AddRange(new string[] { "None", "One", "Two", "OnePointFive" });
 
@@ -33,6 +24,15 @@ namespace SerialDebugger
             dataBit.SelectedIndex = 3;
             parity.SelectedIndex = 0;
             stopBit.SelectedIndex = 1;
+        }
+
+        public string[] AvailablePorts()
+        {
+            string[] portNames;
+
+            portNames = SerialPort.GetPortNames();
+
+            return portNames;
         }
 
         public void SetSerialPort(ComboBox portName, ComboBox baud, ComboBox dataBit, ComboBox parity, ComboBox stopBit)

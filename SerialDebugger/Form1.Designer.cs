@@ -102,7 +102,6 @@
             this.baudrate_cbox.Name = "baudrate_cbox";
             this.baudrate_cbox.Size = new System.Drawing.Size(121, 23);
             this.baudrate_cbox.TabIndex = 4;
-            this.baudrate_cbox.Click += new System.EventHandler(this.comport_cbox_Click);
             // 
             // statusStrip1
             // 
@@ -296,6 +295,7 @@
             // 
             // sendCommand_btn
             // 
+            this.sendCommand_btn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.sendCommand_btn.Location = new System.Drawing.Point(6, 251);
             this.sendCommand_btn.Name = "sendCommand_btn";
             this.sendCommand_btn.Size = new System.Drawing.Size(75, 23);
@@ -306,6 +306,8 @@
             // 
             // command_tbox
             // 
+            this.command_tbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.command_tbox.Location = new System.Drawing.Point(87, 253);
             this.command_tbox.Name = "command_tbox";
             this.command_tbox.Size = new System.Drawing.Size(499, 20);
