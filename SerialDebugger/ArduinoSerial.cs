@@ -128,12 +128,12 @@ namespace SerialDebugger
             baud.Items.AddRange(new string[] { "300", "600", "1200", "2400", "4800", "9600", "14400", "19200", "28800", "38400", "57600", "115200" });
             dataBit.Items.AddRange(new string[] { "5", "6", "7", "8", "9" });
             parity.Items.AddRange(new string[] { "None", "Odd", "Even", "Mark", "Space" });
-            stopBit.Items.AddRange(new string[] { "None", "One", "Two", "OnePointFive" });
+            stopBit.Items.AddRange(new string[] { "One", "Two", "OnePointFive" });
 
             baud.SelectedIndex = 5;
             dataBit.SelectedIndex = 3;
             parity.SelectedIndex = 0;
-            stopBit.SelectedIndex = 1;
+            stopBit.SelectedIndex = 0;
         }
 
         public string[] AvailablePorts()
@@ -174,9 +174,6 @@ namespace SerialDebugger
 
                 switch (stopBit.SelectedItem.ToString())
                 {
-                    case "None":
-                        serialPort.StopBits = StopBits.None;
-                        break;
                     case "One":
                         serialPort.StopBits = StopBits.One;
                         break;

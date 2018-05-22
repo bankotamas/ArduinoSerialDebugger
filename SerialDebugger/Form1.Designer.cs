@@ -63,6 +63,15 @@
             this.command_tbox = new System.Windows.Forms.TextBox();
             this.serialMonitor_rtbox = new System.Windows.Forms.RichTextBox();
             this.serialPortAliveTimer = new System.Windows.Forms.Timer(this.components);
+            this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel7 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.databits_tSlabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel8 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel9 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.parity_tSlabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel10 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel11 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.stopbit_tSlabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -118,7 +127,16 @@
             this.connected_comport_tSlabel,
             this.toolStripStatusLabel4,
             this.toolStripStatusLabel5,
-            this.baudrate_tSlabel});
+            this.baudrate_tSlabel,
+            this.toolStripStatusLabel6,
+            this.toolStripStatusLabel7,
+            this.databits_tSlabel,
+            this.toolStripStatusLabel8,
+            this.toolStripStatusLabel9,
+            this.parity_tSlabel,
+            this.toolStripStatusLabel10,
+            this.toolStripStatusLabel11,
+            this.stopbit_tSlabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 320);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(624, 22);
@@ -257,6 +275,7 @@
             this.settings_lbox.Name = "settings_lbox";
             this.settings_lbox.Size = new System.Drawing.Size(178, 121);
             this.settings_lbox.TabIndex = 12;
+            this.settings_lbox.SelectedIndexChanged += new System.EventHandler(this.settings_lbox_SelectedIndexChanged);
             // 
             // stopbit_cbox
             // 
@@ -383,6 +402,60 @@
             // 
             this.serialPortAliveTimer.Tick += new System.EventHandler(this.serialPortAlive_Tick);
             // 
+            // toolStripStatusLabel6
+            // 
+            this.toolStripStatusLabel6.Name = "toolStripStatusLabel6";
+            this.toolStripStatusLabel6.Size = new System.Drawing.Size(16, 17);
+            this.toolStripStatusLabel6.Text = " | ";
+            // 
+            // toolStripStatusLabel7
+            // 
+            this.toolStripStatusLabel7.Name = "toolStripStatusLabel7";
+            this.toolStripStatusLabel7.Size = new System.Drawing.Size(51, 17);
+            this.toolStripStatusLabel7.Text = "DataBit: ";
+            // 
+            // databits_tSlabel
+            // 
+            this.databits_tSlabel.Name = "databits_tSlabel";
+            this.databits_tSlabel.Size = new System.Drawing.Size(18, 17);
+            this.databits_tSlabel.Text = " - ";
+            // 
+            // toolStripStatusLabel8
+            // 
+            this.toolStripStatusLabel8.Name = "toolStripStatusLabel8";
+            this.toolStripStatusLabel8.Size = new System.Drawing.Size(16, 17);
+            this.toolStripStatusLabel8.Text = " | ";
+            // 
+            // toolStripStatusLabel9
+            // 
+            this.toolStripStatusLabel9.Name = "toolStripStatusLabel9";
+            this.toolStripStatusLabel9.Size = new System.Drawing.Size(43, 17);
+            this.toolStripStatusLabel9.Text = "Parity: ";
+            // 
+            // parity_tSlabel
+            // 
+            this.parity_tSlabel.Name = "parity_tSlabel";
+            this.parity_tSlabel.Size = new System.Drawing.Size(18, 17);
+            this.parity_tSlabel.Text = " - ";
+            // 
+            // toolStripStatusLabel10
+            // 
+            this.toolStripStatusLabel10.Name = "toolStripStatusLabel10";
+            this.toolStripStatusLabel10.Size = new System.Drawing.Size(16, 17);
+            this.toolStripStatusLabel10.Text = " | ";
+            // 
+            // toolStripStatusLabel11
+            // 
+            this.toolStripStatusLabel11.Name = "toolStripStatusLabel11";
+            this.toolStripStatusLabel11.Size = new System.Drawing.Size(51, 17);
+            this.toolStripStatusLabel11.Text = "StopBit: ";
+            // 
+            // stopbit_tSlabel
+            // 
+            this.stopbit_tSlabel.Name = "stopbit_tSlabel";
+            this.stopbit_tSlabel.Size = new System.Drawing.Size(18, 17);
+            this.stopbit_tSlabel.Text = " - ";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -440,6 +513,15 @@
         private System.Windows.Forms.Button saveSettings_btn;
         private System.Windows.Forms.ListBox settings_lbox;
         private System.Windows.Forms.Button deleteSettings_btn;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel6;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel7;
+        private System.Windows.Forms.ToolStripStatusLabel databits_tSlabel;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel8;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel9;
+        private System.Windows.Forms.ToolStripStatusLabel parity_tSlabel;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel10;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel11;
+        private System.Windows.Forms.ToolStripStatusLabel stopbit_tSlabel;
     }
 }
 

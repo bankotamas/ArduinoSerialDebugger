@@ -23,7 +23,7 @@ namespace SerialDebugger
         public Form1()
         {
             InitializeComponent();
-
+            
             /* Check Settings folder is Exist or not. If not, we need to create it. */
             if(!Directory.Exists(SettingsFolderPath))
             {
@@ -116,6 +116,9 @@ namespace SerialDebugger
 
                 connected_comport_tSlabel.Text = Arduino.serialPort.PortName;
                 baudrate_tSlabel.Text = Arduino.serialPort.BaudRate.ToString();
+                databits_tSlabel.Text = Arduino.serialPort.DataBits.ToString();
+                parity_tSlabel.Text = Arduino.serialPort.Parity.ToString();
+                stopbit_tSlabel.Text = Arduino.serialPort.StopBits.ToString();
             }
             else
             {
@@ -128,6 +131,9 @@ namespace SerialDebugger
 
                 connected_comport_tSlabel.Text = " - ";
                 baudrate_tSlabel.Text = " - ";
+                databits_tSlabel.Text = " - ";
+                parity_tSlabel.Text = " - ";
+                stopbit_tSlabel.Text = " - ";
             }
         }
 
@@ -171,17 +177,64 @@ namespace SerialDebugger
 
         private void saveSettings_btn_Click(object sender, EventArgs e)
         {
-            settings_lbox.Items.Add(settingsName_tbox.Text.ToString());
-            ArduinoSerial.saveSettings actual = new ArduinoSerial.saveSettings();
+            if (settingsName_tbox.TextLength > 0)
+            {
+                if (!settings_lbox.Items.Contains(settingsName_tbox.Text.ToString()))
+                {
+                    settings_lbox.Items.Add(settingsName_tbox.Text.ToString());
+                }
+                ArduinoSerial.saveSettings actual = new ArduinoSerial.saveSettings();
 
-            actual = new ArduinoSerial.saveSettings(settingsName_tbox.Text.ToString(), Arduino.serialPort);
+                /* Set serialport parameters for saving */
+                Arduino.serialPort.PortName = comport_cbox.SelectedItem.ToString();
+                Arduino.serialPort.BaudRate = Convert.ToInt32(baudrate_cbox.SelectedItem.ToString());
+                Arduino.serialPort.DataBits = Convert.ToInt32(databit_cbox.SelectedItem.ToString());
 
-            /* Add serial port informations to list, then write to a file (and in this way, we can read) */
-            //dataList.Add(actual);
+                switch (parity_cbox.SelectedItem.ToString())
+                {
+                    case "None":
+                        Arduino.serialPort.Parity = Parity.None;
+                        break;
+                    case "Odd":
+                        Arduino.serialPort.Parity = Parity.Odd;
+                        break;
+                    case "Even":
+                        Arduino.serialPort.Parity = Parity.Even;
+                        break;
+                    case "Mark":
+                        Arduino.serialPort.Parity = Parity.Mark;
+                        break;
+                    case "Space":
+                        Arduino.serialPort.Parity = Parity.Space;
+                        break;
+                }
 
-            Jason.WriteToJsonFile(SettingsFolderPath + "/" + settingsName_tbox.Text.ToString() + ".settings", actual);
+                switch (stopbit_cbox.SelectedItem.ToString())
+                {
+                    case "One":
+                        Arduino.serialPort.StopBits = StopBits.One;
+                        break;
+                    case "Two":
+                        Arduino.serialPort.StopBits = StopBits.Two;
+                        break;
+                    case "OnePointFive":
+                        Arduino.serialPort.StopBits = StopBits.OnePointFive;
+                        break;
+                }
 
-            settingsName_tbox.Text = string.Empty;
+                actual = new ArduinoSerial.saveSettings(settingsName_tbox.Text.ToString(), Arduino.serialPort);
+
+                /* Add serial port informations to list, then write to a file (and in this way, we can read) */
+                dataList.Add(new ArduinoSerial.serialportData(actual));
+
+                Jason.WriteToJsonFile(SettingsFolderPath + "/" + settingsName_tbox.Text.ToString() + ".settings", actual);
+
+                settingsName_tbox.Text = string.Empty;
+            }
+            else
+            {
+                MessageBox.Show("Settings name is EMPTY! You need to write something...", "Error");
+            }
         }
 
         private void deleteSettings_btn_Click(object sender, EventArgs e)
@@ -210,11 +263,20 @@ namespace SerialDebugger
                             /* Add this comport name and select */
                             comport_cbox.Items.Add(spData.serialInformations.PortName);
                             comport_cbox.SelectedIndex = comport_cbox.Items.Count - 1;
+
+                            baudrate_cbox.SelectedItem = spData.serialInformations.BaudRate.ToString();
+                            databit_cbox.SelectedItem = spData.serialInformations.DataBits.ToString();
+                            stopbit_cbox.SelectedItem = spData.serialInformations.StopBits.ToString();
+                            parity_cbox.SelectedItem = spData.serialInformations.Parity.ToString();
                         }
                         else
                         {
                             /* If it contain it, select */
                             comport_cbox.SelectedItem = spData.serialInformations.PortName;
+                            baudrate_cbox.SelectedItem = spData.serialInformations.BaudRate.ToString();
+                            parity_cbox.SelectedItem = spData.serialInformations.Parity.ToString();
+                            databit_cbox.SelectedItem = spData.serialInformations.DataBits.ToString();
+                            stopbit_cbox.SelectedItem = spData.serialInformations.StopBits.ToString();
                         }
                     }
                 }
@@ -223,6 +285,11 @@ namespace SerialDebugger
             {
                 MessageBox.Show("Choose one settings from list.", "Error");
             }
+        }
+
+        private void settings_lbox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settingsName_tbox.Text = settings_lbox.SelectedItem.ToString();
         }
     }
 }
