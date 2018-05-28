@@ -37,6 +37,9 @@
       <HintPath>..\packages\Jason.0.2.1.0\lib\net40\Jason.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MetroFramework">
+      <HintPath>..\..\rgb_strip_handler\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\rgb_strip_handler\packages\Newtonsoft.Json.6.0.8\lib\net35\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -58,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArduinoSerial.cs" />
+    <Compile Include="DataSetHandler.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

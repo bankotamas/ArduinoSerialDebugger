@@ -43,6 +43,15 @@
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
             this.baudrate_tSlabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel7 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.databits_tSlabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel8 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel9 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.parity_tSlabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel10 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel11 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.stopbit_tSlabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.deleteSettings_btn = new System.Windows.Forms.Button();
@@ -62,20 +71,24 @@
             this.sendCommand_btn = new System.Windows.Forms.Button();
             this.command_tbox = new System.Windows.Forms.TextBox();
             this.serialMonitor_rtbox = new System.Windows.Forms.RichTextBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.DataMonitorSettings_gbox = new System.Windows.Forms.GroupBox();
+            this.dataSetUnit_tbox = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.dataSetID_tbox = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.dataSetName_tbox = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.addDataSet_btn = new System.Windows.Forms.Button();
             this.serialPortAliveTimer = new System.Windows.Forms.Timer(this.components);
-            this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel7 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.databits_tSlabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel8 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel9 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.parity_tSlabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel10 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel11 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.stopbit_tSlabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.saveDataSet_btn = new System.Windows.Forms.Button();
+            this.loadDataSet_btn = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.DataMonitorSettings_gbox.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -139,7 +152,7 @@
             this.stopbit_tSlabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 320);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(624, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(646, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -191,6 +204,60 @@
             this.baudrate_tSlabel.Size = new System.Drawing.Size(18, 17);
             this.baudrate_tSlabel.Text = " - ";
             // 
+            // toolStripStatusLabel6
+            // 
+            this.toolStripStatusLabel6.Name = "toolStripStatusLabel6";
+            this.toolStripStatusLabel6.Size = new System.Drawing.Size(16, 17);
+            this.toolStripStatusLabel6.Text = " | ";
+            // 
+            // toolStripStatusLabel7
+            // 
+            this.toolStripStatusLabel7.Name = "toolStripStatusLabel7";
+            this.toolStripStatusLabel7.Size = new System.Drawing.Size(51, 17);
+            this.toolStripStatusLabel7.Text = "DataBit: ";
+            // 
+            // databits_tSlabel
+            // 
+            this.databits_tSlabel.Name = "databits_tSlabel";
+            this.databits_tSlabel.Size = new System.Drawing.Size(18, 17);
+            this.databits_tSlabel.Text = " - ";
+            // 
+            // toolStripStatusLabel8
+            // 
+            this.toolStripStatusLabel8.Name = "toolStripStatusLabel8";
+            this.toolStripStatusLabel8.Size = new System.Drawing.Size(16, 17);
+            this.toolStripStatusLabel8.Text = " | ";
+            // 
+            // toolStripStatusLabel9
+            // 
+            this.toolStripStatusLabel9.Name = "toolStripStatusLabel9";
+            this.toolStripStatusLabel9.Size = new System.Drawing.Size(43, 17);
+            this.toolStripStatusLabel9.Text = "Parity: ";
+            // 
+            // parity_tSlabel
+            // 
+            this.parity_tSlabel.Name = "parity_tSlabel";
+            this.parity_tSlabel.Size = new System.Drawing.Size(18, 17);
+            this.parity_tSlabel.Text = " - ";
+            // 
+            // toolStripStatusLabel10
+            // 
+            this.toolStripStatusLabel10.Name = "toolStripStatusLabel10";
+            this.toolStripStatusLabel10.Size = new System.Drawing.Size(16, 17);
+            this.toolStripStatusLabel10.Text = " | ";
+            // 
+            // toolStripStatusLabel11
+            // 
+            this.toolStripStatusLabel11.Name = "toolStripStatusLabel11";
+            this.toolStripStatusLabel11.Size = new System.Drawing.Size(51, 17);
+            this.toolStripStatusLabel11.Text = "StopBit: ";
+            // 
+            // stopbit_tSlabel
+            // 
+            this.stopbit_tSlabel.Name = "stopbit_tSlabel";
+            this.stopbit_tSlabel.Size = new System.Drawing.Size(18, 17);
+            this.stopbit_tSlabel.Text = " - ";
+            // 
             // tabControl1
             // 
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -198,10 +265,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(600, 305);
+            this.tabControl1.Size = new System.Drawing.Size(622, 305);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
@@ -226,7 +294,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(592, 279);
+            this.tabPage1.Size = new System.Drawing.Size(614, 279);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Connection";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -362,7 +430,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(592, 279);
+            this.tabPage2.Size = new System.Drawing.Size(614, 279);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Serial Monitor";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -398,69 +466,120 @@
             this.serialMonitor_rtbox.TabIndex = 0;
             this.serialMonitor_rtbox.Text = "";
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.DataMonitorSettings_gbox);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(614, 279);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Data Monitor";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // DataMonitorSettings_gbox
+            // 
+            this.DataMonitorSettings_gbox.Controls.Add(this.loadDataSet_btn);
+            this.DataMonitorSettings_gbox.Controls.Add(this.saveDataSet_btn);
+            this.DataMonitorSettings_gbox.Controls.Add(this.dataSetUnit_tbox);
+            this.DataMonitorSettings_gbox.Controls.Add(this.label8);
+            this.DataMonitorSettings_gbox.Controls.Add(this.dataSetID_tbox);
+            this.DataMonitorSettings_gbox.Controls.Add(this.label7);
+            this.DataMonitorSettings_gbox.Controls.Add(this.dataSetName_tbox);
+            this.DataMonitorSettings_gbox.Controls.Add(this.label6);
+            this.DataMonitorSettings_gbox.Controls.Add(this.addDataSet_btn);
+            this.DataMonitorSettings_gbox.Location = new System.Drawing.Point(6, 3);
+            this.DataMonitorSettings_gbox.Name = "DataMonitorSettings_gbox";
+            this.DataMonitorSettings_gbox.Size = new System.Drawing.Size(602, 75);
+            this.DataMonitorSettings_gbox.TabIndex = 0;
+            this.DataMonitorSettings_gbox.TabStop = false;
+            this.DataMonitorSettings_gbox.Text = "Settings";
+            // 
+            // dataSetUnit_tbox
+            // 
+            this.dataSetUnit_tbox.Location = new System.Drawing.Point(405, 19);
+            this.dataSetUnit_tbox.Name = "dataSetUnit_tbox";
+            this.dataSetUnit_tbox.Size = new System.Drawing.Size(100, 20);
+            this.dataSetUnit_tbox.TabIndex = 6;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(370, 22);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(29, 13);
+            this.label8.TabIndex = 5;
+            this.label8.Text = "Unit:";
+            // 
+            // dataSetID_tbox
+            // 
+            this.dataSetID_tbox.Location = new System.Drawing.Point(264, 19);
+            this.dataSetID_tbox.Name = "dataSetID_tbox";
+            this.dataSetID_tbox.Size = new System.Drawing.Size(100, 20);
+            this.dataSetID_tbox.TabIndex = 4;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(237, 22);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(21, 13);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "ID:";
+            // 
+            // dataSetName_tbox
+            // 
+            this.dataSetName_tbox.Location = new System.Drawing.Point(131, 19);
+            this.dataSetName_tbox.Name = "dataSetName_tbox";
+            this.dataSetName_tbox.Size = new System.Drawing.Size(100, 20);
+            this.dataSetName_tbox.TabIndex = 2;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(87, 22);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(38, 13);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "Name:";
+            // 
+            // addDataSet_btn
+            // 
+            this.addDataSet_btn.Location = new System.Drawing.Point(6, 17);
+            this.addDataSet_btn.Name = "addDataSet_btn";
+            this.addDataSet_btn.Size = new System.Drawing.Size(75, 23);
+            this.addDataSet_btn.TabIndex = 0;
+            this.addDataSet_btn.Text = "Add";
+            this.addDataSet_btn.UseVisualStyleBackColor = true;
+            this.addDataSet_btn.Click += new System.EventHandler(this.addDataSet_btn_Click);
+            // 
             // serialPortAliveTimer
             // 
             this.serialPortAliveTimer.Tick += new System.EventHandler(this.serialPortAlive_Tick);
             // 
-            // toolStripStatusLabel6
+            // saveDataSet_btn
             // 
-            this.toolStripStatusLabel6.Name = "toolStripStatusLabel6";
-            this.toolStripStatusLabel6.Size = new System.Drawing.Size(16, 17);
-            this.toolStripStatusLabel6.Text = " | ";
+            this.saveDataSet_btn.Location = new System.Drawing.Point(87, 46);
+            this.saveDataSet_btn.Name = "saveDataSet_btn";
+            this.saveDataSet_btn.Size = new System.Drawing.Size(75, 23);
+            this.saveDataSet_btn.TabIndex = 7;
+            this.saveDataSet_btn.Text = "Save";
+            this.saveDataSet_btn.UseVisualStyleBackColor = true;
             // 
-            // toolStripStatusLabel7
+            // loadDataSet_btn
             // 
-            this.toolStripStatusLabel7.Name = "toolStripStatusLabel7";
-            this.toolStripStatusLabel7.Size = new System.Drawing.Size(51, 17);
-            this.toolStripStatusLabel7.Text = "DataBit: ";
-            // 
-            // databits_tSlabel
-            // 
-            this.databits_tSlabel.Name = "databits_tSlabel";
-            this.databits_tSlabel.Size = new System.Drawing.Size(18, 17);
-            this.databits_tSlabel.Text = " - ";
-            // 
-            // toolStripStatusLabel8
-            // 
-            this.toolStripStatusLabel8.Name = "toolStripStatusLabel8";
-            this.toolStripStatusLabel8.Size = new System.Drawing.Size(16, 17);
-            this.toolStripStatusLabel8.Text = " | ";
-            // 
-            // toolStripStatusLabel9
-            // 
-            this.toolStripStatusLabel9.Name = "toolStripStatusLabel9";
-            this.toolStripStatusLabel9.Size = new System.Drawing.Size(43, 17);
-            this.toolStripStatusLabel9.Text = "Parity: ";
-            // 
-            // parity_tSlabel
-            // 
-            this.parity_tSlabel.Name = "parity_tSlabel";
-            this.parity_tSlabel.Size = new System.Drawing.Size(18, 17);
-            this.parity_tSlabel.Text = " - ";
-            // 
-            // toolStripStatusLabel10
-            // 
-            this.toolStripStatusLabel10.Name = "toolStripStatusLabel10";
-            this.toolStripStatusLabel10.Size = new System.Drawing.Size(16, 17);
-            this.toolStripStatusLabel10.Text = " | ";
-            // 
-            // toolStripStatusLabel11
-            // 
-            this.toolStripStatusLabel11.Name = "toolStripStatusLabel11";
-            this.toolStripStatusLabel11.Size = new System.Drawing.Size(51, 17);
-            this.toolStripStatusLabel11.Text = "StopBit: ";
-            // 
-            // stopbit_tSlabel
-            // 
-            this.stopbit_tSlabel.Name = "stopbit_tSlabel";
-            this.stopbit_tSlabel.Size = new System.Drawing.Size(18, 17);
-            this.stopbit_tSlabel.Text = " - ";
+            this.loadDataSet_btn.Location = new System.Drawing.Point(6, 46);
+            this.loadDataSet_btn.Name = "loadDataSet_btn";
+            this.loadDataSet_btn.Size = new System.Drawing.Size(75, 23);
+            this.loadDataSet_btn.TabIndex = 8;
+            this.loadDataSet_btn.Text = "Load";
+            this.loadDataSet_btn.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(624, 342);
+            this.ClientSize = new System.Drawing.Size(646, 342);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.statusStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -474,6 +593,9 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.DataMonitorSettings_gbox.ResumeLayout(false);
+            this.DataMonitorSettings_gbox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -522,6 +644,17 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel10;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel11;
         private System.Windows.Forms.ToolStripStatusLabel stopbit_tSlabel;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.GroupBox DataMonitorSettings_gbox;
+        private System.Windows.Forms.TextBox dataSetID_tbox;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox dataSetName_tbox;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button addDataSet_btn;
+        private System.Windows.Forms.TextBox dataSetUnit_tbox;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button loadDataSet_btn;
+        private System.Windows.Forms.Button saveDataSet_btn;
     }
 }
 

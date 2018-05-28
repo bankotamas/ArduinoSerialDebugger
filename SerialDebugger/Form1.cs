@@ -16,7 +16,10 @@ namespace SerialDebugger
     {
         ArduinoSerial Arduino = new ArduinoSerial();
         Jason serializer = new Jason();
+
         public string SettingsFolderPath = "Settings";
+        Point baseLocation = new Point(5, 80);
+        int szamlalo = 0;
 
         public List<ArduinoSerial.serialportData> dataList = new List<ArduinoSerial.serialportData>();
 
@@ -289,7 +292,37 @@ namespace SerialDebugger
 
         private void settings_lbox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            settingsName_tbox.Text = settings_lbox.SelectedItem.ToString();
+            try
+            {
+                settingsName_tbox.Text = settings_lbox.SelectedItem.ToString();
+            }
+            catch { }
+        }
+
+        private void addDataSet_btn_Click(object sender, EventArgs e)
+        {
+            GroupBox newGroupBox;
+
+            DataSetHandler.dataSet specifiedGroupBox = new DataSetHandler.dataSet(dataSetName_tbox.Text, dataSetID_tbox.Text, dataSetUnit_tbox.Text);
+
+            newGroupBox = specifiedGroupBox.GetMyGroupBox;
+            specifiedGroupBox.SetVariableValue = "10.123456789";
+            tabPage3.Controls.Add(newGroupBox);
+
+            newGroupBox.Location = baseLocation;
+
+            dataSetName_tbox.Clear();
+            dataSetID_tbox.Clear();
+            dataSetUnit_tbox.Clear();
+
+            baseLocation.Y = baseLocation.Y + 50;
+            szamlalo++;
+
+            if (szamlalo % 5 == 0)
+            {
+                baseLocation.X = baseLocation.X + 120;
+                baseLocation.Y = 30;
+            }
         }
     }
 }
