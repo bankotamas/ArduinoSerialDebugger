@@ -14,13 +14,14 @@ namespace SerialDebugger
 {
     public partial class Form1 : Form
     {
+        public string SettingsFolderPath = "Settings";
         ArduinoSerial Arduino = new ArduinoSerial();
         Jason serializer = new Jason();
 
-        public string SettingsFolderPath = "Settings";
-        Point baseLocation = new Point(5, 80);
-        int szamlalo = 0;
+        /* List for collecting DataSetControl controls */
+        public List<DataSetControl> dataControlList = new List<DataSetControl>();
 
+        /* List for serial port data saving and restoring */
         public List<ArduinoSerial.serialportData> dataList = new List<ArduinoSerial.serialportData>();
 
         public Form1()
@@ -301,28 +302,120 @@ namespace SerialDebugger
 
         private void addDataSet_btn_Click(object sender, EventArgs e)
         {
-            GroupBox newGroupBox;
+            ToolTip toolTip = new ToolTip();
+            DataSetControl setControl = new DataSetControl();
 
-            DataSetHandler.dataSet specifiedGroupBox = new DataSetHandler.dataSet(dataSetName_tbox.Text, dataSetID_tbox.Text, dataSetUnit_tbox.Text);
+            setControl.dataSetName.Text = dataSetName_tbox.Text;
+            setControl.MessageID.Text = dataSetID_tbox.Text;
+            setControl.Unit.Text = dataSetUnit_tbox.Text;
 
-            newGroupBox = specifiedGroupBox.GetMyGroupBox;
-            specifiedGroupBox.SetVariableValue = "10.123456789";
-            tabPage3.Controls.Add(newGroupBox);
+            try
+            {
+                /* Set tooltip for this control */
+                toolTip.SetToolTip(setControl.dataSetName, "Message ID: " + setControl.MessageID.Text);
+                /* Add control to layout panel */
+                flowLayoutPanel1.Controls.Add(setControl);
+                /* Add control to list */
+                dataControlList.Add(setControl);
+                /* Add double click event to control */
+                setControl.dataSetName.DoubleClick += delegate (object sender2, EventArgs e2)
+                    {
+                        dataControl_DoubleClick_Event(sender, e, setControl);
+                    };
+                /* Design... no more */
+                setControl.dataSetName.MouseHover += delegate (object sender3, EventArgs e3)
+                {
+                    dataControl_MouseHover_Event(sender, e, setControl);
+                };
+                /* Design... no more */
+                setControl.dataSetName.MouseLeave += delegate (object sender4, EventArgs e4)
+                {
+                    dataControl_MouseLeave_Event(sender, e, setControl);
+                };
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
 
-            newGroupBox.Location = baseLocation;
+            /* Clear all textboxes */
+            dataSetName_tbox.Clear();
+            dataSetUnit_tbox.Clear();
+            dataSetID_tbox.Clear();
+        }
 
+        private void modifyDataSet_btn_Click(object sender, EventArgs e)
+        {
+            /* Azt kéne csinálni, hogy doubleClick event minden DataSetControl-hoz.
+             *  Ebben az event-ben a controlban lévő adatokat vissza kell tölteni a textboxokba 
+             *  (index alapján könnyen kiszedhető a listából.
+             *  
+             *  Modify gomb megnyomására pedig frissíteni a listában az adatokat és reménykedni, hogy az a felületen is frissül.
+             * 
+             */
+            ToolTip toolTip = new ToolTip();
+
+            /* Find double clicked control in List */
+            foreach(DataSetControl setControl in dataControlList)
+            {
+                /* If we found, change properties */
+                if (setControl.TabIndex == Convert.ToInt32(dataSetIndex_tbox.Text))
+                {
+                    setControl.dataSetName.Text = dataSetName_tbox.Text;
+                    setControl.Unit.Text = dataSetUnit_tbox.Text;
+                    setControl.MessageID.Text = dataSetID_tbox.Text;
+                    toolTip.SetToolTip(setControl, "Message ID: " + setControl.MessageID.Text); // not worked...
+                }
+            }
+
+            /* Clear all textboxes */
             dataSetName_tbox.Clear();
             dataSetID_tbox.Clear();
             dataSetUnit_tbox.Clear();
+        }
 
-            baseLocation.Y = baseLocation.Y + 50;
-            szamlalo++;
+        private void dataControl_DoubleClick_Event(object sender, EventArgs e, DataSetControl setControl)
+        {
+            /* Load datas from control to textboxes */
+            dataSetName_tbox.Text = setControl.dataSetName.Text;
+            dataSetID_tbox.Text = setControl.MessageID.Text;
+            dataSetUnit_tbox.Text = setControl.Unit.Text;
+            dataSetIndex_tbox.Text = setControl.TabIndex.ToString();
+        }
 
-            if (szamlalo % 5 == 0)
+        private void dataControl_MouseHover_Event(object sender, EventArgs e, DataSetControl setControl)
+        {
+            setControl.BackColor = Color.AliceBlue;
+        }
+
+        private void dataControl_MouseLeave_Event(object sender, EventArgs e, DataSetControl setControl)
+        {
+            setControl.BackColor = Color.White;
+        }
+
+        private void deleteDataSet_btn_Click(object sender, EventArgs e)
+        {
+            /* Find double clicked control in List */
+            foreach (DataSetControl setControl in dataControlList)
             {
-                baseLocation.X = baseLocation.X + 120;
-                baseLocation.Y = 30;
+                /* If we found, change properties */
+                if (setControl.TabIndex == Convert.ToInt32(dataSetIndex_tbox.Text))
+                {
+                    try
+                    {
+                        flowLayoutPanel1.Controls.RemoveAt(setControl.TabIndex);
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error");
+                    }
+                }
             }
+
+            /* Clear all textboxes */
+            dataSetName_tbox.Clear();
+            dataSetID_tbox.Clear();
+            dataSetUnit_tbox.Clear();
         }
     }
 }

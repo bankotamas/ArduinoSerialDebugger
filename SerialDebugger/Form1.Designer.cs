@@ -72,7 +72,12 @@
             this.command_tbox = new System.Windows.Forms.TextBox();
             this.serialMonitor_rtbox = new System.Windows.Forms.RichTextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.DataMonitorSettings_gbox = new System.Windows.Forms.GroupBox();
+            this.dataSetIndex_tbox = new System.Windows.Forms.TextBox();
+            this.modifyDataSet_btn = new System.Windows.Forms.Button();
+            this.loadDataSet_btn = new System.Windows.Forms.Button();
+            this.saveDataSet_btn = new System.Windows.Forms.Button();
             this.dataSetUnit_tbox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.dataSetID_tbox = new System.Windows.Forms.TextBox();
@@ -81,8 +86,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.addDataSet_btn = new System.Windows.Forms.Button();
             this.serialPortAliveTimer = new System.Windows.Forms.Timer(this.components);
-            this.saveDataSet_btn = new System.Windows.Forms.Button();
-            this.loadDataSet_btn = new System.Windows.Forms.Button();
+            this.deleteDataSet_btn = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -468,6 +472,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.flowLayoutPanel1);
             this.tabPage3.Controls.Add(this.DataMonitorSettings_gbox);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
@@ -477,8 +482,18 @@
             this.tabPage3.Text = "Data Monitor";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(6, 84);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(602, 189);
+            this.flowLayoutPanel1.TabIndex = 1;
+            // 
             // DataMonitorSettings_gbox
             // 
+            this.DataMonitorSettings_gbox.Controls.Add(this.deleteDataSet_btn);
+            this.DataMonitorSettings_gbox.Controls.Add(this.dataSetIndex_tbox);
+            this.DataMonitorSettings_gbox.Controls.Add(this.modifyDataSet_btn);
             this.DataMonitorSettings_gbox.Controls.Add(this.loadDataSet_btn);
             this.DataMonitorSettings_gbox.Controls.Add(this.saveDataSet_btn);
             this.DataMonitorSettings_gbox.Controls.Add(this.dataSetUnit_tbox);
@@ -494,6 +509,42 @@
             this.DataMonitorSettings_gbox.TabIndex = 0;
             this.DataMonitorSettings_gbox.TabStop = false;
             this.DataMonitorSettings_gbox.Text = "Settings";
+            // 
+            // dataSetIndex_tbox
+            // 
+            this.dataSetIndex_tbox.Location = new System.Drawing.Point(168, 48);
+            this.dataSetIndex_tbox.Name = "dataSetIndex_tbox";
+            this.dataSetIndex_tbox.Size = new System.Drawing.Size(23, 20);
+            this.dataSetIndex_tbox.TabIndex = 10;
+            this.dataSetIndex_tbox.Visible = false;
+            // 
+            // modifyDataSet_btn
+            // 
+            this.modifyDataSet_btn.Location = new System.Drawing.Point(521, 17);
+            this.modifyDataSet_btn.Name = "modifyDataSet_btn";
+            this.modifyDataSet_btn.Size = new System.Drawing.Size(75, 23);
+            this.modifyDataSet_btn.TabIndex = 9;
+            this.modifyDataSet_btn.Text = "Modify";
+            this.modifyDataSet_btn.UseVisualStyleBackColor = true;
+            this.modifyDataSet_btn.Click += new System.EventHandler(this.modifyDataSet_btn_Click);
+            // 
+            // loadDataSet_btn
+            // 
+            this.loadDataSet_btn.Location = new System.Drawing.Point(6, 46);
+            this.loadDataSet_btn.Name = "loadDataSet_btn";
+            this.loadDataSet_btn.Size = new System.Drawing.Size(75, 23);
+            this.loadDataSet_btn.TabIndex = 8;
+            this.loadDataSet_btn.Text = "Load";
+            this.loadDataSet_btn.UseVisualStyleBackColor = true;
+            // 
+            // saveDataSet_btn
+            // 
+            this.saveDataSet_btn.Location = new System.Drawing.Point(87, 46);
+            this.saveDataSet_btn.Name = "saveDataSet_btn";
+            this.saveDataSet_btn.Size = new System.Drawing.Size(75, 23);
+            this.saveDataSet_btn.TabIndex = 7;
+            this.saveDataSet_btn.Text = "Save";
+            this.saveDataSet_btn.UseVisualStyleBackColor = true;
             // 
             // dataSetUnit_tbox
             // 
@@ -557,23 +608,15 @@
             // 
             this.serialPortAliveTimer.Tick += new System.EventHandler(this.serialPortAlive_Tick);
             // 
-            // saveDataSet_btn
+            // deleteDataSet_btn
             // 
-            this.saveDataSet_btn.Location = new System.Drawing.Point(87, 46);
-            this.saveDataSet_btn.Name = "saveDataSet_btn";
-            this.saveDataSet_btn.Size = new System.Drawing.Size(75, 23);
-            this.saveDataSet_btn.TabIndex = 7;
-            this.saveDataSet_btn.Text = "Save";
-            this.saveDataSet_btn.UseVisualStyleBackColor = true;
-            // 
-            // loadDataSet_btn
-            // 
-            this.loadDataSet_btn.Location = new System.Drawing.Point(6, 46);
-            this.loadDataSet_btn.Name = "loadDataSet_btn";
-            this.loadDataSet_btn.Size = new System.Drawing.Size(75, 23);
-            this.loadDataSet_btn.TabIndex = 8;
-            this.loadDataSet_btn.Text = "Load";
-            this.loadDataSet_btn.UseVisualStyleBackColor = true;
+            this.deleteDataSet_btn.Location = new System.Drawing.Point(521, 46);
+            this.deleteDataSet_btn.Name = "deleteDataSet_btn";
+            this.deleteDataSet_btn.Size = new System.Drawing.Size(75, 23);
+            this.deleteDataSet_btn.TabIndex = 11;
+            this.deleteDataSet_btn.Text = "Delete";
+            this.deleteDataSet_btn.UseVisualStyleBackColor = true;
+            this.deleteDataSet_btn.Click += new System.EventHandler(this.deleteDataSet_btn_Click);
             // 
             // Form1
             // 
@@ -655,6 +698,10 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button loadDataSet_btn;
         private System.Windows.Forms.Button saveDataSet_btn;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Button modifyDataSet_btn;
+        private System.Windows.Forms.TextBox dataSetIndex_tbox;
+        private System.Windows.Forms.Button deleteDataSet_btn;
     }
 }
 
