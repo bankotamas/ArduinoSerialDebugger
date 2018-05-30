@@ -15,6 +15,7 @@ namespace SerialDebugger
     public partial class Form1 : Form
     {
         public string SettingsFolderPath = "Settings";
+        public string DataMonitorFolderPath = "Data Monitor";
         ArduinoSerial Arduino = new ArduinoSerial();
         Jason serializer = new Jason();
 
@@ -24,12 +25,34 @@ namespace SerialDebugger
         /* List for serial port data saving and restoring */
         public List<ArduinoSerial.serialportData> dataList = new List<ArduinoSerial.serialportData>();
 
+        public struct DataMonitorSet
+        {
+            public string DataSetName;
+            public string DataSetID;
+            public string DataSetUnit;
+            public int DataSetIndex;
+
+            public DataMonitorSet(string Name, string ID, string Unit, int Index)
+            {
+                DataSetName = Name;
+                DataSetID = ID;
+                DataSetUnit = Unit;
+                DataSetIndex = Index;
+            }
+        }
+
         public Form1()
         {
             InitializeComponent();
-            
+
+            /* Check Data Monitor folder is Exist or not. If not, we need to create it. */
+            if (!Directory.Exists(DataMonitorFolderPath))
+            {
+                Directory.CreateDirectory(DataMonitorFolderPath);
+            }
+
             /* Check Settings folder is Exist or not. If not, we need to create it. */
-            if(!Directory.Exists(SettingsFolderPath))
+            if (!Directory.Exists(SettingsFolderPath))
             {
                 Directory.CreateDirectory(SettingsFolderPath);
             }
@@ -313,20 +336,25 @@ namespace SerialDebugger
             {
                 /* Set tooltip for this control */
                 toolTip.SetToolTip(setControl.dataSetName, "Message ID: " + setControl.MessageID.Text);
+
                 /* Add control to layout panel */
                 flowLayoutPanel1.Controls.Add(setControl);
+
                 /* Add control to list */
                 dataControlList.Add(setControl);
+
                 /* Add double click event to control */
                 setControl.dataSetName.DoubleClick += delegate (object sender2, EventArgs e2)
-                    {
-                        dataControl_DoubleClick_Event(sender, e, setControl);
-                    };
+                {
+                    dataControl_DoubleClick_Event(sender, e, setControl);
+                };
+
                 /* Design... no more */
                 setControl.dataSetName.MouseHover += delegate (object sender3, EventArgs e3)
                 {
                     dataControl_MouseHover_Event(sender, e, setControl);
                 };
+
                 /* Design... no more */
                 setControl.dataSetName.MouseLeave += delegate (object sender4, EventArgs e4)
                 {
@@ -417,5 +445,76 @@ namespace SerialDebugger
             dataSetID_tbox.Clear();
             dataSetUnit_tbox.Clear();
         }
+
+        private void saveDataSet_btn_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.InitialDirectory = Path.GetFullPath(DataMonitorFolderPath);
+            saveFileDialog1.Filter = "Data Monitor Collection files |*.dmc|All files |*.*";
+            saveFileDialog1.FilterIndex = 1;
+
+            saveFileDialog1.ShowDialog();
+        }
+
+        private void loadDataSet_btn_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.InitialDirectory = Path.GetFullPath(DataMonitorFolderPath);
+            openFileDialog1.Filter = "Data Monitor Collection files |*.dmc|All files |*.*";
+            openFileDialog1.FilterIndex = 1;
+            openFileDialog1.Multiselect = false;
+
+            openFileDialog1.ShowDialog();
+            try
+            {
+                DataMonitorSet dmSet;
+               
+
+                string fileName = openFileDialog1.FileName;
+                string[] fileLines = File.ReadAllLines(fileName);
+
+                foreach (string fileContent in fileLines)
+                {
+                    File.WriteAllText("Data Monitor//temp.dmc", fileContent);
+                    
+                    try
+                    {
+                        dmSet = Jason.ReadFromJsonFile<DataMonitorSet>("Data Monitor//temp.dmc");
+                        DataSetControl dsControl = new DataSetControl();
+
+                        dsControl.dataSetName.Text = dmSet.DataSetName;
+                        dsControl.MessageID.Text = dmSet.DataSetID;
+                        dsControl.Unit.Text = dmSet.DataSetUnit;
+                        dsControl.TabIndex = dmSet.DataSetIndex;
+
+                        /* Add to list for handling */
+                        dataControlList.Add(dsControl);
+
+                        /* Add to list for display the control */
+                        flowLayoutPanel1.Controls.Add(dsControl);
+
+                        /* Add double click event to control */
+                        dsControl.dataSetName.DoubleClick += delegate (object sender2, EventArgs e2)
+                        {
+                            dataControl_DoubleClick_Event(sender, e, dsControl);
+                        };
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Sajna nem sikerült beolvasni");
+                    }
+                    finally
+                    {
+                        if(File.Exists("Data Monitor//temp.dmc"))
+                        {
+                            File.Delete("Data Monitor//temp.dmc");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+            }
+        }
+        
     }
 }

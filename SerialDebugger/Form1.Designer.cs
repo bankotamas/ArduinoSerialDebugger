@@ -74,6 +74,7 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.DataMonitorSettings_gbox = new System.Windows.Forms.GroupBox();
+            this.deleteDataSet_btn = new System.Windows.Forms.Button();
             this.dataSetIndex_tbox = new System.Windows.Forms.TextBox();
             this.modifyDataSet_btn = new System.Windows.Forms.Button();
             this.loadDataSet_btn = new System.Windows.Forms.Button();
@@ -86,7 +87,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.addDataSet_btn = new System.Windows.Forms.Button();
             this.serialPortAliveTimer = new System.Windows.Forms.Timer(this.components);
-            this.deleteDataSet_btn = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -510,6 +512,16 @@
             this.DataMonitorSettings_gbox.TabStop = false;
             this.DataMonitorSettings_gbox.Text = "Settings";
             // 
+            // deleteDataSet_btn
+            // 
+            this.deleteDataSet_btn.Location = new System.Drawing.Point(521, 46);
+            this.deleteDataSet_btn.Name = "deleteDataSet_btn";
+            this.deleteDataSet_btn.Size = new System.Drawing.Size(75, 23);
+            this.deleteDataSet_btn.TabIndex = 11;
+            this.deleteDataSet_btn.Text = "Delete";
+            this.deleteDataSet_btn.UseVisualStyleBackColor = true;
+            this.deleteDataSet_btn.Click += new System.EventHandler(this.deleteDataSet_btn_Click);
+            // 
             // dataSetIndex_tbox
             // 
             this.dataSetIndex_tbox.Location = new System.Drawing.Point(168, 48);
@@ -536,6 +548,7 @@
             this.loadDataSet_btn.TabIndex = 8;
             this.loadDataSet_btn.Text = "Load";
             this.loadDataSet_btn.UseVisualStyleBackColor = true;
+            this.loadDataSet_btn.Click += new System.EventHandler(this.loadDataSet_btn_Click);
             // 
             // saveDataSet_btn
             // 
@@ -545,6 +558,7 @@
             this.saveDataSet_btn.TabIndex = 7;
             this.saveDataSet_btn.Text = "Save";
             this.saveDataSet_btn.UseVisualStyleBackColor = true;
+            this.saveDataSet_btn.Click += new System.EventHandler(this.saveDataSet_btn_Click);
             // 
             // dataSetUnit_tbox
             // 
@@ -608,15 +622,9 @@
             // 
             this.serialPortAliveTimer.Tick += new System.EventHandler(this.serialPortAlive_Tick);
             // 
-            // deleteDataSet_btn
+            // openFileDialog1
             // 
-            this.deleteDataSet_btn.Location = new System.Drawing.Point(521, 46);
-            this.deleteDataSet_btn.Name = "deleteDataSet_btn";
-            this.deleteDataSet_btn.Size = new System.Drawing.Size(75, 23);
-            this.deleteDataSet_btn.TabIndex = 11;
-            this.deleteDataSet_btn.Text = "Delete";
-            this.deleteDataSet_btn.UseVisualStyleBackColor = true;
-            this.deleteDataSet_btn.Click += new System.EventHandler(this.deleteDataSet_btn_Click);
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // Form1
             // 
@@ -702,6 +710,8 @@
         private System.Windows.Forms.Button modifyDataSet_btn;
         private System.Windows.Forms.TextBox dataSetIndex_tbox;
         private System.Windows.Forms.Button deleteDataSet_btn;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 
