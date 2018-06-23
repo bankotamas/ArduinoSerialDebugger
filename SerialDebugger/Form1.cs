@@ -7,6 +7,7 @@ using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -94,6 +95,11 @@ namespace SerialDebugger
                     }
                 }
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            
         }
 
         private void connect_btn_Click(object sender, EventArgs e)
@@ -423,6 +429,8 @@ namespace SerialDebugger
 
         private void deleteDataSet_btn_Click(object sender, EventArgs e)
         {
+            int IndexToDelete = 0;
+
             /* Find double clicked control in List */
             foreach (DataSetControl setControl in dataControlList)
             {
@@ -431,19 +439,45 @@ namespace SerialDebugger
                 {
                     try
                     {
-                        flowLayoutPanel1.Controls.RemoveAt(setControl.TabIndex);
+                        IndexToDelete = setControl.TabIndex;
+                        break;
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message, "Error");
                     }
                 }
             }
 
+            /* Delete chosed element */
+            try
+            {
+                var itemToRemove = dataControlList.Single(r => r.TabIndex == IndexToDelete);
+
+                flowLayoutPanel1.Controls.Remove(itemToRemove);
+                dataControlList.Remove(itemToRemove);
+                dataControlList.OrderBy(valami => valami.TabIndex);
+            }
+            catch { }
+
+
             /* Clear all textboxes */
             dataSetName_tbox.Clear();
             dataSetID_tbox.Clear();
             dataSetUnit_tbox.Clear();
+
+            /* Re-indexing elements in list */
+           foreach (DataSetControl dsControl in flowLayoutPanel1.Controls)
+            {
+                foreach(DataSetControl dsListControl in dataControlList)
+                {
+                    if(dsListControl.dataSetName.Text == dsControl.dataSetName.Text && dsListControl.MessageID.Text == dsControl.MessageID.Text && dsListControl.Unit.Text == dsControl.Unit.Text)
+                    {
+                        dsListControl.TabIndex = dsControl.TabIndex;
+                        break;
+                    }
+                }
+            }
         }
 
         private void saveDataSet_btn_Click(object sender, EventArgs e)
@@ -451,8 +485,28 @@ namespace SerialDebugger
             saveFileDialog1.InitialDirectory = Path.GetFullPath(DataMonitorFolderPath);
             saveFileDialog1.Filter = "Data Monitor Collection files |*.dmc|All files |*.*";
             saveFileDialog1.FilterIndex = 1;
+            saveFileDialog1.FileName = "";
 
-            saveFileDialog1.ShowDialog();
+            /* Datatype for saving */
+            DataMonitorSet dmSet;
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                if (File.Exists(saveFileDialog1.FileName))
+                {
+                    File.Delete(saveFileDialog1.FileName);
+                }
+
+                foreach (DataSetControl dsControl in dataControlList)
+                {
+                    dmSet.DataSetName = dsControl.dataSetName.Text;
+                    dmSet.DataSetID = dsControl.MessageID.Text;
+                    dmSet.DataSetUnit = dsControl.Unit.Text;
+                    dmSet.DataSetIndex = dsControl.TabIndex;
+                    
+                    Jason.WriteToJsonFile<DataMonitorSet>(saveFileDialog1.FileName, dmSet, true);
+                }
+            }
         }
 
         private void loadDataSet_btn_Click(object sender, EventArgs e)
@@ -461,60 +515,99 @@ namespace SerialDebugger
             openFileDialog1.Filter = "Data Monitor Collection files |*.dmc|All files |*.*";
             openFileDialog1.FilterIndex = 1;
             openFileDialog1.Multiselect = false;
+            openFileDialog1.FileName = "";
 
-            openFileDialog1.ShowDialog();
-            try
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                DataMonitorSet dmSet;
-               
-
-                string fileName = openFileDialog1.FileName;
-                string[] fileLines = File.ReadAllLines(fileName);
-
-                foreach (string fileContent in fileLines)
+                try
                 {
-                    File.WriteAllText("Data Monitor//temp.dmc", fileContent);
-                    
-                    try
+                    /* Datatype for loading */
+                    DataMonitorSet dmSet;
+
+                    string fileName = openFileDialog1.FileName;
+                    string[] fileLines = File.ReadAllLines(fileName);
+
+                    foreach (string fileContent in fileLines)
                     {
-                        dmSet = Jason.ReadFromJsonFile<DataMonitorSet>("Data Monitor//temp.dmc");
-                        DataSetControl dsControl = new DataSetControl();
+                        File.WriteAllText("Data Monitor//temp.dmc", fileContent);
 
-                        dsControl.dataSetName.Text = dmSet.DataSetName;
-                        dsControl.MessageID.Text = dmSet.DataSetID;
-                        dsControl.Unit.Text = dmSet.DataSetUnit;
-                        dsControl.TabIndex = dmSet.DataSetIndex;
-
-                        /* Add to list for handling */
-                        dataControlList.Add(dsControl);
-
-                        /* Add to list for display the control */
-                        flowLayoutPanel1.Controls.Add(dsControl);
-
-                        /* Add double click event to control */
-                        dsControl.dataSetName.DoubleClick += delegate (object sender2, EventArgs e2)
+                        try
                         {
-                            dataControl_DoubleClick_Event(sender, e, dsControl);
-                        };
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Sajna nem sikerült beolvasni");
-                    }
-                    finally
-                    {
-                        if(File.Exists("Data Monitor//temp.dmc"))
+                            dmSet = Jason.ReadFromJsonFile<DataMonitorSet>("Data Monitor//temp.dmc");
+                            DataSetControl dsControl = new DataSetControl();
+
+                            dsControl.dataSetName.Text = dmSet.DataSetName;
+                            dsControl.MessageID.Text = dmSet.DataSetID;
+                            dsControl.Unit.Text = dmSet.DataSetUnit;
+                            dsControl.TabIndex = GetNextTabIndex(dmSet.DataSetIndex);
+
+                            /* Add to list for handling */
+                            dataControlList.Add(dsControl);
+
+                            /* Add to list for display the control */
+                            flowLayoutPanel1.Controls.Add(dsControl);
+
+                            /* Add double click event to control */
+                            dsControl.dataSetName.DoubleClick += delegate (object sender2, EventArgs e2)
+                            {
+                                dataControl_DoubleClick_Event(sender, e, dsControl);
+                            };
+                        }
+                        catch (Exception ex)
                         {
-                            File.Delete("Data Monitor//temp.dmc");
+                            MessageBox.Show(ex.Message, "Sajna nem sikerült beolvasni");
+                        }
+                        finally
+                        {
+                            if (File.Exists("Data Monitor//temp.dmc"))
+                            {
+                                File.Delete("Data Monitor//temp.dmc");
+                            }
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+                }
             }
         }
-        
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox1 aboutBox = new AboutBox1();
+            aboutBox.Show();
+        }
+
+        private int GetNextTabIndex(int nextElementTabIndex)
+        {
+            int MaxIndex = 0;
+            int NextIndex = 0;
+
+            /* Find maximum Tab Index in flowcontrol */
+            foreach (DataSetControl dsControl in dataControlList)
+            {
+                if (dsControl.TabIndex > MaxIndex)
+                {
+                    MaxIndex = dsControl.TabIndex;
+                }
+            }
+
+            /* Check list, that is the read element's tab index is already exist */
+            foreach (DataSetControl dsControl in dataControlList)
+            {
+                if (dsControl.TabIndex == nextElementTabIndex)
+                {
+                    NextIndex = MaxIndex + 1;
+                    break;
+                }
+                else
+                {
+                    NextIndex = nextElementTabIndex;
+                }
+            }
+
+            return NextIndex;
+        }
     }
 }
